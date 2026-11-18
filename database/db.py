@@ -98,6 +98,19 @@ def get_user_by_email(email):
         conn.close()
 
 
+def get_user_by_id(user_id):
+    """Return the user row matching user_id, or None."""
+    if user_id is None:
+        return None
+    conn = get_db()
+    try:
+        return conn.execute(
+            "SELECT * FROM users WHERE id = ?", (user_id,)
+        ).fetchone()
+    finally:
+        conn.close()
+
+
 def create_user(name, email, password):
     """Insert a user with a hashed password and return the new user id.
 
